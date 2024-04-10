@@ -3,7 +3,7 @@
 ## Team members
 
 - Adilov Amir
-- Zheksenbiyev Arsen
+- Zhexenbiyev Arsen
 - Napilov Ivan
 
 ## Description
