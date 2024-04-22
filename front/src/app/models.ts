@@ -6,28 +6,28 @@ export interface Token {
   export interface CPU {
     id: number;
     name: string;
-    releaseDate: Date;
+    release_date: Date;
   }
   
   export interface GPU {
     id: number;
     name: string;
-    releaseDate: Date;
+    release_date: Date;
   }
   
   export interface Game {
     id: number;
     name: string;
     genre: string;
-    releaseDate: Date;
+    release_date: Date;
     developer: string;
-    minimumMemory: number;
-    recommendedMemory: number;
-    fileSize: number;
-    minimumCpu: CPU;
-    recommendedCpu: CPU;
-    minimumGpu: GPU;
-    recommendedGpu: GPU;
+    minimum_memory: string;
+    recommended_memory: number;
+    file_size: number;
+    minimum_cpu: CPU;
+    recommended_cpu: CPU;
+    minimum_gpu: GPU;
+    recommended_gpu: GPU;
   }
 
   export interface Token {

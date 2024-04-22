@@ -59,6 +59,10 @@ export class PcService {
     return this.http.get<Game>(`${this.BASE_URL}/benchmark/games/${id}/`);
   }
 
+  getGameByName(name: string): Observable<Game> {
+    return this.http.get<Game>(`${this.BASE_URL}/benchmark/games/name/${name}/`);
+  }
+
   getCpu(id: number): Observable<CPU> {
     return this.http.get<CPU>(`${this.BASE_URL}/benchmark/cpus/${id}/`);
   }

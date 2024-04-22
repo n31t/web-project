@@ -79,8 +79,8 @@ def game(request, id):
 def game_by_name(request, name):
     if not request.user.is_authenticated:
         return JsonResponse({'message': 'Unauthorized'}, status=401)
-    title = name.replace('_', ' ')
-    game = Game.objects.get(name=title)
+    title = name.replace('_', ' ').lower()
+    game = Game.objects.get(name__iexact=title)
     serializer = GameSerializer(game)
     return JsonResponse(serializer.data, safe=False)
 
