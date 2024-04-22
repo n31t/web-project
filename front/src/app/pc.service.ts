@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, map, switchMap } from 'rxjs';
+import { EMPTY, Observable, concatMap, expand, forkJoin, map, switchMap, toArray } from 'rxjs';
 import { CPU, GPU, Game, Token } from './models';
 
 
@@ -29,19 +29,30 @@ export class PcService {
       map(response => response.results)
     );
   }
+  // getAllGames(): Observable<Game[]> {
+  //   const count = this.http.get<GameListResponse>(`${this.BASE_URL}/benchmark/games/`).pipe(
+  //     map(respone => respone.count)
+  //   );
+  //   return count.pipe(
+  //     switchMap(count =>{
+  //       const requests = [];
+  //       for(let i = 0; i < count; i+=1){
+  //         requests.push(this.http.get<Game>(`${this.BASE_URL}/benchmark/games/?limit=20&offset=${i}`));
+  //       }
+  //       return forkJoin(requests);
+  //     })
+  //   );
+  // }
   getAllGames(): Observable<Game[]> {
-    const count = this.http.get<GameListResponse>(`${this.BASE_URL}/benchmark/games/`).pipe(
-      map(respone => respone.count)
+    return this.getPage(1).pipe(
+      expand(page => page.next ? this.getPage(Number(page.next.split('=')[1])) : EMPTY),
+      concatMap(page => page.results),
+      toArray()
     );
-    return count.pipe(
-      switchMap(count =>{
-        const requests = [];
-        for(let i = 0; i < count; i+=1){
-          requests.push(this.http.get<Game>(`${this.BASE_URL}/benchmark/games/?limit=20&offset=${i}`));
-        }
-        return forkJoin(requests);
-      })
-    );
+  }
+  
+  private getPage(page: number): Observable<GameListResponse> {
+    return this.http.get<GameListResponse>(`${this.BASE_URL}/benchmark/games/?page=${page}`);
   }
 
   getGame(id: number): Observable<Game> {

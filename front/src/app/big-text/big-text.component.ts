@@ -16,7 +16,12 @@ export class BigTextComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.pcService.getGames().subscribe(games => {
+    // this.pcService.getGames().subscribe(games => {
+    //   this.games = games;
+    //   this.loaded = true;
+    // });
+
+    this.pcService.getAllGames().subscribe(games => {
       this.games = games;
       this.loaded = true;
     });
