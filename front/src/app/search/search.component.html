@@ -1,1 +1,16 @@
-<h1>search works!</h1>
+<div class="input-search">
+    <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="search()" placeholder="Search for a game">
+</div>
+<!-- <div class="big-container" *ngIf="loaded; else loading">
+    <div class="planet-container">
+        <h1>Game: </h1>
+            <div class="single-planet">
+                <img class="img" src="assets/images/{{ game.id }}.png" onerror="this.src='assets/images/default.png'" alt="{{ game.name }}">
+                <a [routerLink]="['/game', game.id]" >{{ game.name }}</a>
+            </div>
+    </div>
+</div>
+<ng-template #loading>
+</ng-template> -->
+
+<h2 *ngIf="game">{{game.name}}</h2>

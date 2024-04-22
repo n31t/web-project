@@ -7,7 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'starwars-front';
+  title = 'sys-front';
   constructor(private modalService: NgbModal) {
   }
 

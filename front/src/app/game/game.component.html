@@ -1,1 +1,14 @@
-<h1>{{ game.name }}</h1>
+<div *ngIf="game">
+    <h2>{{ game.name }}</h2>
+    <p>ID: {{ game.id }}</p>
+    <p>Genre: {{ game.genre }}</p>
+    <p>Release Date: {{ game.release_date }}</p>
+    <p>Developer: {{ game.developer }}</p>
+    <p>Minimum Memory: {{ game.minimum_memory }} GB</p>
+    <p>Recommended Memory: {{ game.recommended_memory }} GB</p>
+    <p>File Size: {{ game.file_size }} GB</p>
+    <a [routerLink]="['/cpu', game.minimum_cpu.id]">Minimum CPU: {{ game.minimum_cpu.name }} - {{ game.minimum_cpu.release_date }} </a>
+    <!-- <p>Recommended CPU: {{ game.recommendedCpu.model }} - {{ game.recommendedCpu.speed }} GHz</p>
+    <p>Minimum GPU: {{ game.minimumGpu.model }} - {{ game.minimumGpu.vram }} GB VRAM</p>
+    <p>Recommended GPU: {{ game.recommendedGpu.model }} - {{ game.recommendedGpu.vram }} GB VRAM</p> -->
+  </div>
