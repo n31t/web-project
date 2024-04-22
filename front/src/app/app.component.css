@@ -1,0 +1,28 @@
+body {
+    background-image: url("/assets/images/space.jpg");
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    margin: -8px;
+}
+
+.end {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top:100%;
+    width: 80%;
+    padding: 0 10%;
+    font-size: 13px;
+    margin: -8px;
+    border-top: 1px solid;
+    border-color: rgb(122, 0, 147);
+    margin-top: 0px;
+}
+.end-links {
+    padding: 10px;
+}
+.end-links a {
+    color: #6e096e;
+    margin-right: 10px;
+    line-height: 1.6;
+}

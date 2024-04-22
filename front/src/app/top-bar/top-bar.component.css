@@ -1,0 +1,22 @@
+.container{
+    width: 100%;
+    /* max-width: 100%; */
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #5c106a;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 0px 0px 80px 80px;
+}
+
+.middle-link{
+    margin-top: 40px;
+    margin-left: auto;
+    height: 100%;
+}
+
+.logo{
+    width:150px;
+    margin-left: 50px;
+    margin-bottom: 5px;
+}
