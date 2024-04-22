@@ -58,7 +58,8 @@ def game(request, id):
         return JsonResponse({'message': 'Game deleted'}, safe=False)
     
 def game_by_name(request, name):
-    game = Game.objects.get(name=name)
+    title = name.replace('_', ' ')
+    game = Game.objects.get(name=title)
     serializer = GameSerializer(game)
     return JsonResponse(serializer.data, safe=False)
 
