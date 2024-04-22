@@ -5,12 +5,21 @@ import json
 from .models import CPU, GPU, Game
 from .serializers import CPUSerializer, GPUSerializer, GameSerializer
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
+
+
 @csrf_exempt
+@api_view(['GET', 'POST'])
 def games(request):
     if request.method == 'GET':
         games = Game.objects.all()
-        serializer = GameSerializer(games, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        paginator = PageNumberPagination()
+        paginator.page_size = 10
+        result_page = paginator.paginate_queryset(games, request)
+        serializer = GameSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
     elif request.method == 'POST':
         data = json.loads(request.body)
         game = Game.objects.create(
@@ -28,6 +37,7 @@ def games(request):
         )
         serializer = GameSerializer(game)
         return JsonResponse(serializer.data, safe=False)
+
 
 @csrf_exempt
 def game(request, id):
@@ -56,7 +66,8 @@ def game(request, id):
         game = Game.objects.get(id=id)
         game.delete()
         return JsonResponse({'message': 'Game deleted'}, safe=False)
-    
+
+
 def game_by_name(request, name):
     title = name.replace('_', ' ')
     game = Game.objects.get(name=title)
@@ -64,7 +75,7 @@ def game_by_name(request, name):
     return JsonResponse(serializer.data, safe=False)
 
 
-#only for developers
+# only for developers
 @csrf_exempt
 def cpus(request):
     if request.method == 'GET':
@@ -79,7 +90,8 @@ def cpus(request):
         )
         serializer = CPUSerializer(cpu)
         return JsonResponse(serializer.data, safe=False)
-    
+
+
 @csrf_exempt
 def cpu(request, id):
     if request.method == 'GET':
@@ -99,6 +111,7 @@ def cpu(request, id):
         cpu.delete()
         return JsonResponse({'message': 'CPU deleted'}, safe=False)
 
+
 @csrf_exempt
 def gpus(request):
     if request.method == 'GET':
@@ -113,7 +126,8 @@ def gpus(request):
         )
         serializer = GPUSerializer(gpu)
         return JsonResponse(serializer.data, safe=False)
-    
+
+
 @csrf_exempt
 def gpu(request, id):
     if request.method == 'GET':
@@ -132,4 +146,3 @@ def gpu(request, id):
         gpu = GPU.objects.get(id=id)
         gpu.delete()
         return JsonResponse({'message': 'GPU deleted'}, safe=False)
-    
