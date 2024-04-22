@@ -17,7 +17,7 @@ export class GameComponent {
 
         ngOnInit() {
           this.route.paramMap.subscribe(params => {
-          const id = Number(params.get('id'));
+          const id = Number(params.get('gameId'));
           this.id = id
           this.pcService.getGame(this.id).subscribe(game => {
             this.game = game;

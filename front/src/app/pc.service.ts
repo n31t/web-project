@@ -26,11 +26,11 @@ export class PcService {
   }
 
   getCpu(id: number): Observable<CPU> {
-    return this.http.get<CPU>(`${this.BASE_URL}/api/cpus/${id}/`);
+    return this.http.get<CPU>(`${this.BASE_URL}/benchmark/cpus/${id}/`);
   }
 
   getGpu(id: number): Observable<GPU> {
-    return this.http.get<GPU>(`${this.BASE_URL}/api/gpus/${id}/`);
+    return this.http.get<GPU>(`${this.BASE_URL}/benchmark/gpus/${id}/`);
   }
 }
 
