@@ -30,10 +30,14 @@ def games(request):
             minimum_memory=data['minimum_memory'],
             recommended_memory=data['recommended_memory'],
             file_size=data['file_size'],
-            minimum_cpu=CPU.objects.get(CPU=data['minimum_cpu']),
-            recommended_cpu=CPU.objects.get(CPU=data['recommended_cpu']),
-            minimum_gpu=GPU.objects.get(GPU=data['minimum_gpu']),
-            recommended_gpu=GPU.objects.get(GPU=data['recommended_gpu'])
+            # minimum_cpu=CPU.objects.get(CPU=data['minimum_cpu']),
+            # recommended_cpu=CPU.objects.get(CPU=data['recommended_cpu']),
+            # minimum_gpu=GPU.objects.get(GPU=data['minimum_gpu']),
+            # recommended_gpu=GPU.objects.get(GPU=data['recommended_gpu'])
+            minimum_cpu=CPU.objects.get(id=data['minimum_cpu']),
+            recommended_cpu=CPU.objects.get(id=data['recommended_cpu']),
+            minimum_gpu=GPU.objects.get(id=data['minimum_gpu']),
+            recommended_gpu=GPU.objects.get(id=data['recommended_gpu'])
         )
         serializer = GameSerializer(game)
         return JsonResponse(serializer.data, safe=False)
