@@ -1,2 +1,5 @@
-<p>cpu works!</p>
-
+<div *ngIf="cpu">
+    <h1>{{ cpu.name }}</h1>
+    <p>ID: {{ cpu.id }}</p>
+    <p>Release Date: {{ cpu.release_date }}</p>
+</div>

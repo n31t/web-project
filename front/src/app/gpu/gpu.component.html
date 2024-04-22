@@ -1,1 +1,6 @@
-<h1>{{ gpu.name }}</h1>
+<div *ngIf="gpu">
+    <h1>{{ gpu.name }}</h1>
+    <p>ID: {{ gpu.id }}</p>
+    <p>Release Date: {{ gpu.release_date }}</p>
+</div>
+
