@@ -11,6 +11,8 @@ import { BigTextComponent } from './big-text/big-text.component';
 import { SearchComponent } from './search/search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GameComponent } from './game/game.component';
+import { GpuComponent } from './gpu/gpu.component';
+import { CpuComponent } from './cpu/cpu.component';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import { GameComponent } from './game/game.component';
       { path: '', redirectTo:'main-page', pathMatch: 'full' },
       { path: 'main-page', component: BigTextComponent, title : 'Requirements Forge'},
       { path: 'game/:gameId', component: GameComponent, title : 'Game'},
+      { path: 'gpu/:gpuId', component: GpuComponent, title : 'GPU'},
+      { path: 'cpu/:cpuId', component: CpuComponent, title : 'CPU'},
       {path: 'search', component: SearchComponent, title : 'Search'},
       {path: '**', component: NotFoundComponent, title : 'Not Found'}
     ])
@@ -34,6 +38,8 @@ import { GameComponent } from './game/game.component';
     NotFoundComponent,
     SearchComponent,
     GameComponent,
+    GpuComponent,
+    CpuComponent,
   ],
   bootstrap: [
     AppComponent
