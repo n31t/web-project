@@ -25,7 +25,9 @@ export class PcService {
   }
 
   getGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(`${this.BASE_URL}/benchmark/games/`);
+    return this.http.get<GameListResponse>(`${this.BASE_URL}/benchmark/games/`).pipe(
+      map(response => response.results)
+    );
   }
   getAllGames(): Observable<Game[]> {
     const count = this.http.get<GameListResponse>(`${this.BASE_URL}/benchmark/games/`).pipe(
