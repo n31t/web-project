@@ -10,6 +10,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { BigTextComponent } from './big-text/big-text.component';
 import { SearchComponent } from './search/search.component';
 import { HttpClientModule } from '@angular/common/http';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot([
       { path: '', redirectTo:'main-page', pathMatch: 'full' },
       { path: 'main-page', component: BigTextComponent, title : 'Requirements Forge'},
+      { path: 'game/:gameId', component: GameComponent, title : 'Game'},
       {path: 'search', component: SearchComponent, title : 'Search'},
       {path: '**', component: NotFoundComponent, title : 'Not Found'}
     ])
@@ -31,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
     BigTextComponent,
     NotFoundComponent,
     SearchComponent,
+    GameComponent,
   ],
   bootstrap: [
     AppComponent

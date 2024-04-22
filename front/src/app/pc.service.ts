@@ -12,17 +12,17 @@ export class PcService {
 
   login(username: string, password: string): Observable<Token> {
     return this.http.post<Token>(
-      `${this.BASE_URL}/api/login/`,
+      `${this.BASE_URL}/benchmark/login/`,
       {username, password}
     )
   }
 
   getGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(`${this.BASE_URL}/api/games/`);
+    return this.http.get<Game[]>(`${this.BASE_URL}/benchmark/games/`);
   }
 
   getGame(id: number): Observable<Game> {
-    return this.http.get<Game>(`${this.BASE_URL}/api/games/${id}/`);
+    return this.http.get<Game>(`${this.BASE_URL}/benchmark/games/${id}/`);
   }
 
   getCpu(id: number): Observable<CPU> {
