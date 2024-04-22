@@ -4,18 +4,24 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import CPU, GPU, Game
 from .serializers import CPUSerializer, GPUSerializer, GameSerializer
-from rest_framework.permissions import IsAuthenticated
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
 
 @csrf_exempt
+@api_view(['GET', 'POST'])
 def games(request):
     if not request.user.is_authenticated:
         return JsonResponse({'message': 'Unauthorized'}, status=401)
     if request.method == 'GET':
         games = Game.objects.all()
-        serializer = GameSerializer(games, many=True)
-        return JsonResponse(serializer.data, safe=False)
-
+        paginator = PageNumberPagination()
+        paginator.page_size = 10
+        result_page = paginator.paginate_queryset(games, request)
+        serializer = GameSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
     elif request.method == 'POST':
         data = json.loads(request.body)
         game = Game.objects.create(
@@ -26,13 +32,18 @@ def games(request):
             minimum_memory=data['minimum_memory'],
             recommended_memory=data['recommended_memory'],
             file_size=data['file_size'],
-            minimum_cpu=CPU.objects.get(CPU=data['minimum_cpu']),
-            recommended_cpu=CPU.objects.get(CPU=data['recommended_cpu']),
-            minimum_gpu=GPU.objects.get(GPU=data['minimum_gpu']),
-            recommended_gpu=GPU.objects.get(GPU=data['recommended_gpu'])
+            # minimum_cpu=CPU.objects.get(CPU=data['minimum_cpu']),
+            # recommended_cpu=CPU.objects.get(CPU=data['recommended_cpu']),
+            # minimum_gpu=GPU.objects.get(GPU=data['minimum_gpu']),
+            # recommended_gpu=GPU.objects.get(GPU=data['recommended_gpu'])
+            minimum_cpu=CPU.objects.get(id=data['minimum_cpu']),
+            recommended_cpu=CPU.objects.get(id=data['recommended_cpu']),
+            minimum_gpu=GPU.objects.get(id=data['minimum_gpu']),
+            recommended_gpu=GPU.objects.get(id=data['recommended_gpu'])
         )
         serializer = GameSerializer(game)
         return JsonResponse(serializer.data, safe=False)
+
 
 @csrf_exempt
 def game(request, id):
@@ -63,7 +74,8 @@ def game(request, id):
         game = Game.objects.get(id=id)
         game.delete()
         return JsonResponse({'message': 'Game deleted'}, safe=False)
-    
+
+
 def game_by_name(request, name):
     if not request.user.is_authenticated:
         return JsonResponse({'message': 'Unauthorized'}, status=401)
@@ -73,7 +85,7 @@ def game_by_name(request, name):
     return JsonResponse(serializer.data, safe=False)
 
 
-#only for developers
+# only for developers
 @csrf_exempt
 def cpus(request):
     if not request.user.is_authenticated:
@@ -90,7 +102,8 @@ def cpus(request):
         )
         serializer = CPUSerializer(cpu)
         return JsonResponse(serializer.data, safe=False)
-    
+
+
 @csrf_exempt
 def cpu(request, id):
     if not request.user.is_authenticated:
@@ -112,6 +125,7 @@ def cpu(request, id):
         cpu.delete()
         return JsonResponse({'message': 'CPU deleted'}, safe=False)
 
+
 @csrf_exempt
 def gpus(request):
     if not request.user.is_authenticated:
@@ -128,7 +142,8 @@ def gpus(request):
         )
         serializer = GPUSerializer(gpu)
         return JsonResponse(serializer.data, safe=False)
-    
+
+
 @csrf_exempt
 def gpu(request, id):
     if not request.user.is_authenticated:
@@ -149,4 +164,3 @@ def gpu(request, id):
         gpu = GPU.objects.get(id=id)
         gpu.delete()
         return JsonResponse({'message': 'GPU deleted'}, safe=False)
-    
