@@ -9,10 +9,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { BigTextComponent } from './big-text/big-text.component';
 import { SearchComponent } from './search/search.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GameComponent } from './game/game.component';
 import { GpuComponent } from './gpu/gpu.component';
 import { CpuComponent } from './cpu/cpu.component';
+import { AuthInterceptor } from './AuthInterceptor';
 
 @NgModule({
   imports: [
@@ -30,6 +31,9 @@ import { CpuComponent } from './cpu/cpu.component';
       {path: 'search', component: SearchComponent, title : 'Search'},
       {path: '**', component: NotFoundComponent, title : 'Not Found'}
     ])
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   declarations: [
     AppComponent,
