@@ -140,8 +140,8 @@ def cpu(request, id):
 
 @csrf_exempt
 def gpus(request):
-    # if not request.user.is_authenticated:
-    #     return JsonResponse({'message': 'Unauthorized'}, status=401)
+    if not request.user.is_authenticated:
+        return JsonResponse({'message': 'Unauthorized'}, status=401)
     if request.method == 'GET':
         gpus = GPU.objects.all()
         serializer = GPUSerializer(gpus, many=True)
