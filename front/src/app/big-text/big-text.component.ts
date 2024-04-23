@@ -21,10 +21,16 @@ export class BigTextComponent implements OnInit{
     //   this.loaded = true;
     // });
 
+    this.pcService.getGames().subscribe(games => {
+      this.games = games;
+      this.loaded = true;
+    });
+  }
+  fetchGames() {
+    this.loaded = false;
     this.pcService.getAllGames().subscribe(games => {
       this.games = games;
       this.loaded = true;
     });
   }
-
 }
