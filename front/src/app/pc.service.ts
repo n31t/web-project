@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, concatMap, expand, forkJoin, map, switchMap, toArray } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, concatMap, expand, forkJoin, map, switchMap, toArray } from 'rxjs';
 import { CPU, GPU, Game, Token } from './models';
 
 
@@ -15,6 +15,8 @@ interface GameListResponse {
 })
 export class PcService {
   BASE_URL = 'http://localhost:8000';
+  private loggedSubject = new BehaviorSubject<boolean>(false);
+  logged$ = this.loggedSubject.asObservable();
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<Token> {
@@ -22,6 +24,14 @@ export class PcService {
       `${this.BASE_URL}/benchmark/login/`,
       {username, password}
     )
+  }
+
+  setLogged(logged: boolean): void {
+    this.loggedSubject.next(logged);
+  }
+
+  setUnlogged(): void {
+    this.loggedSubject.next(false);
   }
 
   refreshToken(refresh: string ): Observable<Token> {
