@@ -24,6 +24,13 @@ export class PcService {
     )
   }
 
+  refreshToken(refresh: string ): Observable<Token> {
+    return this.http.post<Token>(
+      `${this.BASE_URL}/benchmark/refresh/`,
+      {refresh}
+    )
+  }
+
   getGames(): Observable<Game[]> {
     return this.http.get<GameListResponse>(`${this.BASE_URL}/benchmark/games/`).pipe(
       map(response => response.results)

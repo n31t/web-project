@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PcService } from './pc.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -34,6 +35,20 @@ export class AppComponent {
     localStorage.removeItem("refresh");
     this.logged = false;
   }
+
+  refreshToken() {
+    const refreshToken = localStorage.getItem('refresh');
+    if (refreshToken) {
+      const body = {refresh: refreshToken};
+      return this.pcService.refreshToken(refreshToken).subscribe(
+        token => {
+          localStorage.setItem("access", token.access);
+          console.log(token);
+        });
+    }
+    return of(null);
+  }
+
   ngOnInit() {
     const access = localStorage.getItem("access");
     if (access) {
