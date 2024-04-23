@@ -14,6 +14,7 @@ import { GameComponent } from './game/game.component';
 import { GpuComponent } from './gpu/gpu.component';
 import { CpuComponent } from './cpu/cpu.component';
 import { AuthInterceptor } from './AuthInterceptor';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { AuthInterceptor } from './AuthInterceptor';
     GameComponent,
     GpuComponent,
     CpuComponent,
+    LoginComponent,
   ],
   bootstrap: [
     AppComponent
