@@ -17,10 +17,12 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # Перенаправление на страницу входа после успешной регистрации
+            # Перенаправление на страницу входа после успешной регистрации
+            return redirect('login')
     else:
         form = UserCreationForm()
     return JsonResponse({'form': form}, safe=False)
+
 
 @csrf_exempt
 @api_view(['GET', 'POST'])
@@ -140,8 +142,8 @@ def cpu(request, id):
 
 @csrf_exempt
 def gpus(request):
-    # if not request.user.is_authenticated:
-    #     return JsonResponse({'message': 'Unauthorized'}, status=401)
+    if not request.user.is_authenticated:
+        return JsonResponse({'message': 'Unauthorized'}, status=401)
     if request.method == 'GET':
         gpus = GPU.objects.all()
         serializer = GPUSerializer(gpus, many=True)
