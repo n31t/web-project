@@ -1,4 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+class UserPC(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    cpu = models.ForeignKey('CPU', on_delete=models.CASCADE)
+    gpu = models.ForeignKey('GPU', on_delete=models.CASCADE)
+    ram = models.IntegerField()
+    storage = models.IntegerField()
+
+    def __str__(self):
+        return self.user.username
 
 class CPU(models.Model):
     name = models.CharField(max_length=100)

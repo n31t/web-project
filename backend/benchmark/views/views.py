@@ -2,13 +2,25 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import CPU, GPU, Game
-from .serializers import CPUSerializer, GPUSerializer, GameSerializer
+from ..models import CPU, GPU, Game
+from ..serializers import CPUSerializer, GPUSerializer, GameSerializer
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import redirect
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Перенаправление на страницу входа после успешной регистрации
+    else:
+        form = UserCreationForm()
+    return JsonResponse({'form': form}, safe=False)
 
 @csrf_exempt
 @api_view(['GET', 'POST'])

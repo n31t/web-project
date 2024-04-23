@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CPU, GPU, Game
+from .models import CPU, GPU, Game, UserPC
 
 
 class CPUSerializer(serializers.ModelSerializer):
@@ -52,5 +52,25 @@ class GameSerializer(serializers.Serializer):
             'minimum_gpu', instance.minimum_gpu)
         instance.recommended_gpu = validated_data.get(
             'recommended_gpu', instance.recommended_gpu)
+        instance.save()
+        return instance
+
+class UserPCSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    user = serializers.CharField()
+    cpu = CPUSerializer()
+    gpu = GPUSerializer()
+    ram = serializers.IntegerField()
+    storage = serializers.IntegerField()
+
+    def create(self, validated_data):
+        return UserPC.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.user = validated_data.get('user', instance.user)
+        instance.cpu = validated_data.get('cpu', instance.cpu)
+        instance.gpu = validated_data.get('gpu', instance.gpu)
+        instance.ram = validated_data.get('ram', instance.ram)
+        instance.storage = validated_data.get('storage', instance.storage)
         instance.save()
         return instance
