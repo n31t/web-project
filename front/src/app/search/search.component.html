@@ -13,4 +13,6 @@
 <ng-template #loading>
 </ng-template> -->
 
-<h2 *ngIf="game">{{game.name}}</h2>
+<div *ngIf="game">
+    <a [routerLink]="['/game', game.id]">{{ game.name }}</a>
+  </div>

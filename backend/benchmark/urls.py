@@ -6,7 +6,7 @@ from .views import views, generic_v
 urlpatterns = [
     path('register/', views.register),
     path('login/', TokenObtainPairView.as_view()),
-    path('login/refresh/', TokenRefreshView.as_view()),
+    path('refresh/', TokenRefreshView.as_view()),
     path('games/', views.games),
     path('games/<int:id>/', views.game),
     path('games/name/<str:name>/', views.game_by_name),

@@ -25,8 +25,8 @@ def register(request):
 @csrf_exempt
 @api_view(['GET', 'POST'])
 def games(request):
-    if not request.user.is_authenticated:
-        return JsonResponse({'message': 'Unauthorized'}, status=401)
+    # if not request.user.is_authenticated:
+    #     return JsonResponse({'message': 'Unauthorized'}, status=401)
     if request.method == 'GET':
         games = Game.objects.all()
         paginator = PageNumberPagination()
@@ -59,8 +59,8 @@ def games(request):
 
 @csrf_exempt
 def game(request, id):
-    if not request.user.is_authenticated:
-        return JsonResponse({'message': 'Unauthorized'}, status=401)
+    # if not request.user.is_authenticated:
+    #     return JsonResponse({'message': 'Unauthorized'}, status=401)
     if request.method == 'GET':
         game = Game.objects.get(id=id)
         serializer = GameSerializer(game)
@@ -89,8 +89,8 @@ def game(request, id):
 
 
 def game_by_name(request, name):
-    if not request.user.is_authenticated:
-        return JsonResponse({'message': 'Unauthorized'}, status=401)
+    # if not request.user.is_authenticated:
+    #     return JsonResponse({'message': 'Unauthorized'}, status=401)
     title = name.replace('_', ' ').lower()
     game = Game.objects.get(name__iexact=title)
     serializer = GameSerializer(game)
@@ -100,8 +100,8 @@ def game_by_name(request, name):
 # only for developers
 @csrf_exempt
 def cpus(request):
-    if not request.user.is_authenticated:
-        return JsonResponse({'message': 'Unauthorized'}, status=401)
+    # if not request.user.is_authenticated:
+    #     return JsonResponse({'message': 'Unauthorized'}, status=401)
     if request.method == 'GET':
         cpus = CPU.objects.all()
         serializer = CPUSerializer(cpus, many=True)
@@ -118,8 +118,8 @@ def cpus(request):
 
 @csrf_exempt
 def cpu(request, id):
-    if not request.user.is_authenticated:
-        return JsonResponse({'message': 'Unauthorized'}, status=401)
+    # if not request.user.is_authenticated:
+    #     return JsonResponse({'message': 'Unauthorized'}, status=401)
     if request.method == 'GET':
         cpu = CPU.objects.get(id=id)
         serializer = CPUSerializer(cpu)
@@ -140,8 +140,8 @@ def cpu(request, id):
 
 @csrf_exempt
 def gpus(request):
-    if not request.user.is_authenticated:
-        return JsonResponse({'message': 'Unauthorized'}, status=401)
+    # if not request.user.is_authenticated:
+    #     return JsonResponse({'message': 'Unauthorized'}, status=401)
     if request.method == 'GET':
         gpus = GPU.objects.all()
         serializer = GPUSerializer(gpus, many=True)
@@ -158,8 +158,8 @@ def gpus(request):
 
 @csrf_exempt
 def gpu(request, id):
-    if not request.user.is_authenticated:
-        return JsonResponse({'message': 'Unauthorized'}, status=401)
+    # if not request.user.is_authenticated:
+    #     return JsonResponse({'message': 'Unauthorized'}, status=401)
     if request.method == 'GET':
         gpu = GPU.objects.get(id=id)
         serializer = GPUSerializer(gpu)

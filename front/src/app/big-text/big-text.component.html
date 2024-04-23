@@ -1,5 +1,6 @@
-<ul>
+<ul *ngIf="games">
     <li *ngFor="let game of games">
         <a [routerLink]="['/game', game.id]">{{game.name}}</a>
     </li>
 </ul>
+<button (click)="fetchGames()"> Show All Games</button>

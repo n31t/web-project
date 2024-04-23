@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Game } from '../models';
 import { PcService } from '../pc.service';
 import { ActivatedRoute } from '@angular/router';
