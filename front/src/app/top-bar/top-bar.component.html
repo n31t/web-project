@@ -10,9 +10,18 @@
     </a>
     </div>
     <div class="middle-link">
-        <a [routerLink]="['/login']">
-        <!-- <img class="logo" src="assets/images/planets.png" > -->
-        Login
+        <ng-container *ngIf="!logged; else logoutTemplate">
+            <a [routerLink]="['/login']">
+            <!-- <img class="logo" src="assets/images/planets.png" > -->
+            Login
+            </a>
+        </ng-container>
+        <ng-template #logoutTemplate>
+            <a (click)="logout()">
+            <!-- <img class="logo" src="assets/images/planets.png" > -->
+            Logout
         </a>
+        </ng-template>
+        <!-- <img class="logo" src="assets/images/planets.png" > -->
     </div>
 </div>
