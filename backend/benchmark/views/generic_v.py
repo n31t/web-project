@@ -7,40 +7,44 @@ from benchmark.serializers import UserPCSerializer, CPUSerializer, GPUSerializer
 class GameListCreateView(generics.ListCreateAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 class GameRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 class UserPCListCreateView(generics.ListCreateAPIView):
-    queryset = UserPC.objects.all()
+    # queryset = UserPC.objects.all()
     serializer_class = UserPCSerializer
     permission_classes = [IsAuthenticated]
+    def get_queryset(self):
+        return UserPC.objects.filter(user=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class UserPCRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserPC.objects.all()
     serializer_class = UserPCSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 class CPUListCreateView(generics.ListCreateAPIView):
     queryset = CPU.objects.all()
     serializer_class = CPUSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 class CPURetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CPU.objects.all()
     serializer_class = CPUSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 class GPUListCreateView(generics.ListCreateAPIView):
     queryset = GPU.objects.all()
     serializer_class = GPUSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 class GPURetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = GPU.objects.all()
     serializer_class = GPUSerializer
-    permission_classes = [IsAuthenticated]
-    
+    # permission_classes = [IsAuthenticated]
+
