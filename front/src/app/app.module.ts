@@ -15,6 +15,7 @@ import { GpuComponent } from './gpu/gpu.component';
 import { CpuComponent } from './cpu/cpu.component';
 import { AuthInterceptor } from './AuthInterceptor';
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { LoginComponent } from './login/login.component';
     RouterModule.forRoot([
       { path: '', redirectTo:'main-page', pathMatch: 'full' },
       { path: 'login', component: LoginComponent, title : 'Login'},
+      { path: 'profile', component: ProfileComponent, title : 'Profile'},
       { path: 'main-page', component: BigTextComponent, title : 'Requirements Forge'},
       { path: 'game/:gameId', component: GameComponent, title : 'Game'},
       { path: 'gpu/:gpuId', component: GpuComponent, title : 'GPU'},
@@ -47,6 +49,7 @@ import { LoginComponent } from './login/login.component';
     GpuComponent,
     CpuComponent,
     LoginComponent,
+    ProfileComponent,
   ],
   bootstrap: [
     AppComponent

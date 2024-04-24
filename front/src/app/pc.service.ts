@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, EMPTY, Observable, concatMap, expand, forkJoin, map, switchMap, toArray } from 'rxjs';
-import { CPU, GPU, Game, Token } from './models';
+import { CPU, GPU, Game, Token, UserPc } from './models';
 
 
 interface GameListResponse {
@@ -9,6 +9,13 @@ interface GameListResponse {
   next: string;
   previous: string;
   results: Game[];
+}
+
+interface UserPcResponse {
+  count: number;
+  next: string;
+  previous: string;
+  results: UserPc[];
 }
 @Injectable({
   providedIn: 'root'
@@ -86,6 +93,26 @@ export class PcService {
 
   getGpu(id: number): Observable<GPU> {
     return this.http.get<GPU>(`${this.BASE_URL}/benchmark/gpus/${id}/`);
+  }
+
+  getCpus(): Observable<CPU[]> {
+    return this.http.get<CPU[]>(`${this.BASE_URL}/benchmark/cpus/`);
+  }
+
+  getGpus(): Observable<GPU[]> {
+    return this.http.get<GPU[]>(`${this.BASE_URL}/benchmark/gpus/`);
+  }
+
+  getUserPc(): Observable<UserPc> {
+    return this.http.get<UserPcResponse>(`${this.BASE_URL}/benchmark/userpc/`).pipe(
+      map(response => response.results[0])
+    );
+  }
+  postUserPc(cpu: number, gpu: number, ram: number, storage: number): Observable<UserPc> {
+    return this.http.post<UserPc>(`${this.BASE_URL}/benchmark/userpc/`, {cpu, gpu, ram, storage});
+  }
+  deleteUserPc(id: number): Observable<UserPc> {
+    return this.http.delete<UserPc>(`${this.BASE_URL}/benchmark/userpc/${id}/`);
   }
 }
 

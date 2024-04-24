@@ -1,27 +1,25 @@
 <div class="container">
     <a [routerLink]="['/']">
-        <!-- <img class="logo" src="assets/images/logo2.png" > -->
         Logo
     </a>
     <div class="middle-link">
     <a [routerLink]="['/search']">
-        <!-- <img class="logo" src="assets/images/search.png" > -->
         Search
     </a>
     </div>
     <div class="middle-link">
         <ng-container *ngIf="!logged; else logoutTemplate">
             <a [routerLink]="['/login']">
-            <!-- <img class="logo" src="assets/images/planets.png" > -->
             Login
             </a>
         </ng-container>
         <ng-template #logoutTemplate>
+            <a [routerLink]="['/profile']">
+                Profile
+            </a>
             <a (click)="logout()">
-            <!-- <img class="logo" src="assets/images/planets.png" > -->
             Logout
         </a>
         </ng-template>
-        <!-- <img class="logo" src="assets/images/planets.png" > -->
     </div>
 </div>
