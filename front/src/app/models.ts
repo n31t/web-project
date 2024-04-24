@@ -37,8 +37,8 @@ export interface Token {
 
   export interface UserPc {
     id: number;
-    cpu: CPU;
-    gpu: GPU;
+    cpu: number;
+    gpu: number;
     ram: number;
     storage: number;
   }

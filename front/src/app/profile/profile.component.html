@@ -1,1 +1,39 @@
-<p>profile works!</p>
+<div *ngIf="logged">
+    <div *ngIf="pc && pc.id">
+      <h2>Your PC</h2>
+      <p>CPU: {{pc.cpu}}</p>
+      <p>GPU: {{pc.gpu}}</p>
+      <p>RAM: {{pc.ram}}</p>
+      <p>Storage: {{pc.storage}}</p>
+  
+      <button (click)="updatePc(pc.id, pc.cpu, pc.gpu, pc.ram, pc.storage)">Update PC</button>
+      <button (click)="deletePc(pc.id)">Delete PC</button>
+    </div>
+  
+    <div *ngIf="!pc || !pc.id">
+        <h2>Create a PC</h2>
+        <form (ngSubmit)="createPc(+cpu.value, +gpu.value, +ram.value, +storage.value)">
+          <label>
+            CPU:
+            <input #cpu type="number" required>
+          </label>
+          <label>
+            GPU:
+            <input #gpu type="number" required>
+          </label>
+          <label>
+            RAM:
+            <input #ram type="number" required>
+          </label>
+          <label>
+            Storage:
+            <input #storage type="number" required>
+          </label>
+          <button type="submit">Create PC</button>
+        </form>
+      </div>
+  </div>
+  
+  <div *ngIf="!logged">
+    <p>Please log in to manage your PC.</p>
+  </div>
