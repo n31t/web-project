@@ -108,11 +108,14 @@ export class PcService {
       map(response => response.results[0])
     );
   }
-  postUserPc(cpu: number, gpu: number, ram: number, storage: number): Observable<UserPc> {
-    return this.http.post<UserPc>(`${this.BASE_URL}/benchmark/userpc/`, {cpu, gpu, ram, storage});
+  postUserPc(cpu_id: number, gpu_id: number, ram: number, storage: number): Observable<UserPc> {
+    return this.http.post<UserPc>(`${this.BASE_URL}/benchmark/userpc/`, {cpu_id, gpu_id, ram, storage});
   }
   deleteUserPc(id: number): Observable<UserPc> {
     return this.http.delete<UserPc>(`${this.BASE_URL}/benchmark/userpc/${id}/`);
+  }
+  updateUserPc(id: number, cpu_id: number, gpu_id: number, ram: number, storage: number): Observable<UserPc> {
+    return this.http.put<UserPc>(`${this.BASE_URL}/benchmark/userpc/${id}/`, {cpu_id, gpu_id, ram, storage});
   }
 }
 

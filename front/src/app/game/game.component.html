@@ -4,14 +4,102 @@
     <p>Genre: {{ game.genre }}</p>
     <p>Release Date: {{ game.release_date }}</p>
     <p>Developer: {{ game.developer }}</p>
-    <p>Minimum Memory: {{ game.minimum_memory }} GB</p>
-    <p>Recommended Memory: {{ game.recommended_memory }} GB</p>
-    <p>File Size: {{ game.file_size }} GB</p>
+    <p>Minimum Memory: {{ game.minimum_memory }} GB
+    <span *ngIf="logged">
+      <span *ngIf="pc.ram > game.minimum_memory">
+        <span style="color: green;">(You meet the minimum memory requirements)</span>
+      </span>
+    </span>
+    <span *ngIf="logged">
+      <span *ngIf="pc.ram < game.minimum_memory">
+        <span style="color: red;">(You do not meet the minimum memory requirements)</span>
+      </span>
+    </span>
+    </p>
+    <p>Recommended Memory: {{ game.recommended_memory }} GB
+    <span *ngIf="logged">
+      <span *ngIf="pc.ram >= game.recommended_memory">
+        <span style="color: green;">(You meet the recommended memory requirements)</span>
+      </span>
+    </span>
+    <span *ngIf="logged">
+      <span *ngIf="pc.ram < game.recommended_memory">
+        <span style="color: red;">(You do not meet the recommended memory requirements)</span>
+      </span>
+    </span>
+    </p>
+    <p>File Size: {{ game.file_size }} GB
+
+    <span *ngIf="logged">
+      <span *ngIf="pc.storage >= game.file_size">
+        <span style="color: green;">(You have enough storage space)</span>
+      </span>
+    </span>
+    <span *ngIf="logged">
+      <span *ngIf="pc.storage < game.file_size">
+        <span style="color: red;">(You do not have enough storage space)</span>
+      </span>
+    </span>
+    </p>
+    <p>
     <a [routerLink]="['/cpu', game.minimum_cpu.id]">Minimum CPU: {{ game.minimum_cpu.name }}</a>
-    <br>
+    <span *ngIf="logged">
+      <span *ngIf="cpu.release_date >= game.minimum_cpu.release_date">
+        <span style="color: green;">(You meet the minimum CPU requirements)</span>
+      </span>
+    </span>
+    <span *ngIf="logged">
+      <span *ngIf="cpu.release_date < game.minimum_cpu.release_date">
+        <span style="color: red;">(You do not meet the minimum CPU requirements)</span>
+      </span>
+    </span>
+    </p>
+    <p>
     <a [routerLink]="['/cpu', game.recommended_cpu.id]">Recommended CPU: {{ game.recommended_cpu.name }}</a>
-    <br>
+    <span *ngIf="logged">
+      <span *ngIf="cpu.release_date >= game.recommended_cpu.release_date">
+        <span style="color: green;">(You meet the recommended CPU requirements)</span>
+      </span>
+    </span>
+    <span *ngIf="logged">
+      <span *ngIf="cpu.release_date < game.recommended_cpu.release_date">
+        <span style="color: red;">(You do not meet the recommended CPU requirements)</span>
+      </span>
+    </span>
+    </p>
+    <p>
     <a [routerLink]="['/gpu', game.minimum_gpu.id]">Minimum GPU: {{ game.minimum_gpu.name }}</a>
-    <br>
+    
+    <span *ngIf="logged">
+      <span *ngIf="gpu.release_date >= game.minimum_gpu.release_date">
+        <span style="color: green;">(You meet the minimum GPU requirements)</span>
+      </span>
+    </span>
+    <span *ngIf="logged">
+      <span *ngIf="gpu.release_date < game.minimum_gpu.release_date">
+        <span style="color: red;">(You do not meet the minimum GPU requirements)</span>
+      </span>
+    </span>
+    </p>
+    <p>
     <a [routerLink]="['/gpu', game.recommended_gpu.id]">Recommended GPU: {{ game.recommended_gpu.name }}</a>
+      
+    <span *ngIf="logged">
+      <span *ngIf="gpu.release_date >= game.recommended_gpu.release_date">
+        <span style="color: green;">(You meet the recommended GPU requirements)</span>
+      </span>
+    </span>
+    <span *ngIf="logged">
+      <span *ngIf="gpu.release_date < game.recommended_gpu.release_date">
+        <span style="color: red;">(You do not meet the recommended GPU requirements)</span>
+      </span>
+    </span>
+    </p>
+
+    <h2 *ngIf="meetsAllRequirements()">
+      <span style="color: green;">Your PC meets all the requirements for this game.</span>
+    </h2>
+    <h2 *ngIf="!meetsAllRequirements()">
+      <span style="color: red;">Your PC does not meet all the requirements for this game.</span>
+    </h2>
   </div>

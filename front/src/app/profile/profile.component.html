@@ -1,1 +1,60 @@
-<p>profile works!</p>
+<div *ngIf="logged">
+    <div *ngIf="pc && pc.id">
+      <h2>Your PC</h2>
+      <p>CPU: <a [routerLink]="['/cpu', cpu.id]">{{cpu.name}}</a></p>
+      <p>GPU: <a [routerLink]="['/gpu', gpu.id]">{{gpu.name}}</a></p>
+      <p>RAM: {{pc.ram}}</p>
+      <p>Storage: {{pc.storage}}</p>
+  
+      <h2>Update PC</h2>
+    <form (ngSubmit)="updatePc(+pc.id, +cpuInput.value, +gpuInput.value, +ram.value, +storage.value)">
+      <label>
+        CPU:
+        <input #cpuInput type="number" [value]="pc.cpu_id">
+      </label>
+      <label>
+        GPU:
+        <input #gpuInput type="number" [value]="pc.gpu_id">
+      </label>
+      <label>
+        RAM:
+        <input #ram type="number" [value]="pc.ram">
+      </label>
+      <label>
+        Storage:
+        <input #storage type="number" [value]="pc.storage">
+      </label>
+      <button type="submit">Update PC</button>
+    </form>
+      <!-- <button (click)="updatePc(pc.id, pc.cpu_id, pc.gpu_id, pc.ram, pc.storage)">Update PC</button> -->
+      
+      <button (click)="deletePc(pc.id)">Delete PC</button>
+    </div>
+  
+    <div *ngIf="!pc || !pc.id">
+        <h2>Create a PC</h2>
+        <form (ngSubmit)="createPc(+cpuInput.value, +gpuInput.value, +ram.value, +storage.value)">
+          <label>
+            CPU:
+            <input #cpuInput type="number" required>
+          </label>
+          <label>
+            GPU:
+            <input #gpuInput type="number" required>
+          </label>
+          <label>
+            RAM:
+            <input #ram type="number" required>
+          </label>
+          <label>
+            Storage:
+            <input #storage type="number" required>
+          </label>
+          <button type="submit">Create PC</button>
+        </form>
+      </div>
+  </div>
+  
+  <div *ngIf="!logged">
+    <p>Please log in to manage your PC.</p>
+  </div>

@@ -21,7 +21,7 @@ export interface Token {
     genre: string;
     release_date: Date;
     developer: string;
-    minimum_memory: string;
+    minimum_memory: number;
     recommended_memory: number;
     file_size: number;
     minimum_cpu: CPU;
@@ -37,8 +37,8 @@ export interface Token {
 
   export interface UserPc {
     id: number;
-    cpu: CPU;
-    gpu: GPU;
     ram: number;
     storage: number;
+    cpu_id: number; 
+    gpu_id: number; 
   }
