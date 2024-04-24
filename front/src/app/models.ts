@@ -34,3 +34,11 @@ export interface Token {
     access: string;
     refresh: string;
   }
+
+  export interface UserPc {
+    id: number;
+    cpu: CPU;
+    gpu: GPU;
+    ram: number;
+    storage: number;
+  }
