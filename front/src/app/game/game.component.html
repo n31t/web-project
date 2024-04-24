@@ -95,11 +95,12 @@
       </span>
     </span>
     </p>
-
+  <span *ngIf="logged">
     <h2 *ngIf="meetsAllRequirements()">
       <span style="color: green;">Your PC meets all the requirements for this game.</span>
     </h2>
     <h2 *ngIf="!meetsAllRequirements()">
       <span style="color: red;">Your PC does not meet all the requirements for this game.</span>
     </h2>
+  </span>
   </div>
