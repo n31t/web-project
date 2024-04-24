@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PcService } from '../pc.service';
-import { UserPc } from '../models';
+import { CPU, GPU, UserPc } from '../models';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit{
   pc !: UserPc;
+  gpu !: GPU;
+  cpu !: CPU;
   logged !: boolean;
   constructor(private pcService: PcService, private router: Router) {
     this.pcService.logged$.subscribe(logged => {
@@ -26,6 +28,13 @@ export class ProfileComponent implements OnInit{
   getUserPc() {
     this.pcService.getUserPc().subscribe(pc => {
       this.pc = pc;
+      this.pcService.getGpu(this.pc.gpu_id).subscribe(gpu => {
+        this.gpu = gpu;
+        console.log(this.gpu);
+      });
+      this.pcService.getCpu(this.pc.cpu_id).subscribe(cpu => {
+        this.cpu = cpu;
+      });
     });
   }
   deletePc(id : number) {
@@ -34,14 +43,38 @@ export class ProfileComponent implements OnInit{
     });
   }
   updatePc(id: number, cpu: number, gpu: number, ram: number, storage: number) {
+    if (cpu == 0 || gpu == 0 || ram == 0 || storage == 0) {
+      return;
+    }
+    if(cpu < 0 || gpu < 0 || ram < 0 || storage < 0) {
+      return;
+    }
+    if(cpu ==0)
+    {
+      cpu = this.pc.cpu_id;
+    }
+    if(gpu ==0)
+    {
+      gpu = this.pc.gpu_id;
+    }
+    if(ram ==0)
+    {
+      ram = this.pc.ram;
+    }
+    if(storage ==0)
+    {
+      storage = this.pc.storage;
+    }
     this.pcService.updateUserPc(id, cpu, gpu, ram, storage).subscribe(updatedPc => {
       this.pc = updatedPc;
+      this.getUserPc();
     });
   }
   
   createPc(cpu: number, gpu: number, ram: number, storage: number) {
     this.pcService.postUserPc(cpu, gpu, ram, storage).subscribe(newPc => {
       this.pc = newPc;
+      this.getUserPc();
     });
   }
 }
