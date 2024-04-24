@@ -22,4 +22,5 @@ urlpatterns = [
     # path('gpus/<int:id>/', views.gpu),
     path('gpus/<int:pk>/', generic_v.GPURetrieveUpdateDestroyView.as_view()),
     path('userpc/', generic_v.UserPCListCreateView.as_view()),
+    path('userpc/<int:pk>/', generic_v.UserPCRetrieveUpdateDestroyView.as_view()),
 ]

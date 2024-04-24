@@ -26,9 +26,15 @@ class UserPCListCreateView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 class UserPCRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = UserPC.objects.all()
+    # queryset = UserPC.objects.all()
     serializer_class = UserPCSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    def get_queryset(self):
+        user = self.request.user
+        return UserPC.objects.filter(user=user)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class CPUListCreateView(generics.ListCreateAPIView):
     queryset = CPU.objects.all()
