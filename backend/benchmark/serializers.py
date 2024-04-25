@@ -27,6 +27,10 @@ class GameSerializer(serializers.Serializer):
     recommended_cpu_id = serializers.IntegerField()
     minimum_gpu_id = serializers.IntegerField()
     recommended_gpu_id = serializers.IntegerField()
+    recommended_cpu = CPUSerializer(read_only=True)
+    minimum_cpu = CPUSerializer(read_only=True)
+    recommended_gpu = GPUSerializer(read_only=True)
+    minimum_gpu = GPUSerializer(read_only=True)
 
     def create(self, validated_data):
         minimum_cpu_id = validated_data.pop('minimum_cpu_id')
