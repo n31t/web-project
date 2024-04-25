@@ -23,13 +23,22 @@ class GameSerializer(serializers.Serializer):
     minimum_memory = serializers.IntegerField()
     recommended_memory = serializers.IntegerField()
     file_size = serializers.FloatField()
-    minimum_cpu = CPUSerializer()
-    recommended_cpu = CPUSerializer()
-    minimum_gpu = GPUSerializer()
-    recommended_gpu = GPUSerializer()
+    minimum_cpu_id = serializers.IntegerField()
+    recommended_cpu_id = serializers.IntegerField()
+    minimum_gpu_id = serializers.IntegerField()
+    recommended_gpu_id = serializers.IntegerField()
 
     def create(self, validated_data):
-        return Game.objects.create(**validated_data)
+        minimum_cpu_id = validated_data.pop('minimum_cpu_id')
+        recommended_cpu_id = validated_data.pop('recommended_cpu_id')
+        minimum_gpu_id = validated_data.pop('minimum_gpu_id')
+        recommended_gpu_id = validated_data.pop('recommended_gpu_id')
+        minimum_cpu = CPU.objects.get(pk=minimum_cpu_id)
+        recommended_cpu = CPU.objects.get(pk=recommended_cpu_id)
+        minimum_gpu = GPU.objects.get(pk=minimum_gpu_id)
+        recommended_gpu = GPU.objects.get(pk=recommended_gpu_id)
+        return Game.objects.create(minimum_cpu=minimum_cpu, recommended_cpu=recommended_cpu, minimum_gpu=minimum_gpu, recommended_gpu=recommended_gpu, **validated_data)
+
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
